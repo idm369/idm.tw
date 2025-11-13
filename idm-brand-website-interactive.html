@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDM 品牌網站 - 想像無限，勇於實踐</title>
+    <meta name="description" content="IDM 工作室 - 想像無限，勇於實踐。從點子到設計，從設計到製造，我們提供完整的創意實踐解決方案。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #3d4f5f;
+            --secondary: #5a7a8a;
+            --accent: #7a9aaa;
+            --background: #ffffff;
+            --foreground: #1a1a1a;
+            --muted: #f5f5f5;
+            --border: #e5e5e5;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--foreground);
+            background-color: var(--background);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        nav a, nav button {
+            text-decoration: none;
+            color: var(--foreground);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav button:hover {
+            color: var(--primary);
+        }
+
+        nav a.active, nav button.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 4px;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .cart-icon, .admin-btn {
+            cursor: pointer;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: white;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .admin-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .admin-btn:hover {
+            background: var(--secondary);
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            color: white;
+            padding: 120px 0;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.95;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--muted);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Section */
+        section {
+            padding: 80px 0;
+        }
+
+        section.light {
+            background: var(--muted);
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 48px;
+            font-size: 16px;
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .card {
+            background: white;
+            padding: 32px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(61, 79, 95, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(61, 79, 95, 0.1) 0%, rgba(122, 154, 170, 0.1) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .feature-content {
+            padding: 24px;
+        }
+
+        .feature-content h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .feature-content p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .feature-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .feature-link:hover {
+            color: var(--secondary);
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+
+        .cta p {
+            font-size: 16px;
+            margin-bottom: 32px;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        footer {
+            background: #2a3a4a;
+            color: white;
+            padding: 48px 0 24px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .footer-section h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: block;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 24px;
+            text-align: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                gap: 16px;
+            }
+
+            nav a, nav button {
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .breadcrumb {
+            padding: 16px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 32px;
+            margin-top: 32px;
+        }
+
+        .detail-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(61, 79, 95, 0.1) 0%, rgba(122, 154, 170, 0.1) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+        }
+
+        .detail-info {
+            background: var(--muted);
+            padding: 24px;
+            border-radius: 8px;
+        }
+
+        .detail-info h3 {
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .detail-info p {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" onclick="navigateTo('home')">IDM 品牌網站</div>
+                <nav>
+                    <button onclick="navigateTo('portfolio')" class="nav-link">作品集</button>
+                    <button onclick="navigateTo('shop')" class="nav-link">商店</button>
+                    <button onclick="navigateTo('crowdfunding')" class="nav-link">募資項目</button>
+                    <button onclick="navigateTo('about')" class="nav-link">關於我們</button>
+                    <button onclick="navigateTo('contact')" class="nav-link">聯繫我們</button>
+                    <div class="nav-actions">
+                        <button class="cart-icon" onclick="alert('購物車功能在完整版本中可用')">🛒</button>
+                        <button class="admin-btn" onclick="alert('管理後台需要登入')">管理後台</button>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>想像無限，<br>勇於實踐</h1>
+                    <p>創意，從「敢想」開始。每一個偉大的成就，都源於一個最初的點子。</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="navigateTo('portfolio')">探索作品集</button>
+                        <button class="btn btn-secondary" onclick="navigateTo('shop')">前往商店</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <h2 class="section-title">我們的核心能力</h2>
+                <p class="section-subtitle">從點子到設計，從設計到製造，我們提供完整的創意實踐解決方案</p>
+                <div class="grid">
+                    <div class="card">
+                        <div class="icon">💡</div>
+                        <h3>點子</h3>
+                        <p>激發創意思維，透過系統化的方法論，將抽象的概念轉化為具體可行的方案。</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon">📦</div>
+                        <h3>設計</h3>
+                        <p>融合工業美學與機能性，打造兼具美感與功能的設計作品。</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon">🔧</div>
+                        <h3>製造</h3>
+                        <p>運用精密工藝與創客精神，將設計轉化為實體產品。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="light">
+            <div class="container">
+                <h2 class="section-title">探索我們的服務</h2>
+                <p class="section-subtitle">完整的創意實踐生態系統</p>
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                    <div class="feature-card">
+                        <div class="feature-image">📚</div>
+                        <div class="feature-content">
+                            <h3>作品集</h3>
+                            <p>探索我們的創意設計與製造案例，了解模組化、工業、創客精神的作品特色。</p>
+                            <a class="feature-link" onclick="navigateTo('portfolio')">查看更多 →</a>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-image">🛍️</div>
+                        <div class="feature-content">
+                            <h3>線上商店</h3>
+                            <p>購買工作室自有品牌產品，享受完善的購物車、結帳流程與訂單管理。</p>
+                            <a class="feature-link" onclick="navigateTo('shop')">立即購買 →</a>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-image">🎯</div>
+                        <div class="feature-content">
+                            <h3>募資項目</h3>
+                            <p>參與我們的創新專案，一起實現更多創意想法。</p>
+                            <a class="feature-link" onclick="navigateTo('crowdfunding')">探索專案 →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="container">
+                <h2>準備好踏上您的創意之旅了嗎？</h2>
+                <p>無論是尋找靈感、選購商品，或是參與資源，我們都在這裡支持您</p>
+                <button class="btn btn-primary" onclick="navigateTo('contact')">聯繫我們</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Portfolio Page -->
+    <div id="portfolio" class="page">
+        <section style="padding: 40px 0;">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a onclick="navigateTo('home')">首頁</a> / 作品集
+                </div>
+                <h1 class="section-title" style="margin-top: 32px;">作品集</h1>
+                <p class="section-subtitle">探索我們的創意設計與製造案例</p>
+                
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                    <div class="feature-card">
+                        <div class="feature-image">🎨</div>
+                        <div class="feature-content">
+                            <h3>模組化設計系統</h3>
+                            <p>創新的模組化產品設計，提供無限組合可能性。</p>
+                            <a class="feature-link" onclick="navigateTo('portfolio-detail')">查看詳情 →</a>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-image">🏭</div>
+                        <div class="feature-content">
+                            <h3>工業風格家具</h3>
+                            <p>融合工業美學與現代設計的家具系列。</p>
+                            <a class="feature-link" onclick="navigateTo('portfolio-detail')">查看詳情 →</a>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-image">⚙️</div>
+                        <div class="feature-content">
+                            <h3>創客工具套組</h3>
+                            <p>為 DIY 愛好者設計的專業工具組合。</p>
+                            <a class="feature-link" onclick="navigateTo('portfolio-detail')">查看詳情 →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Portfolio Detail Page -->
+    <div id="portfolio-detail" class="page">
+        <section style="padding: 40px 0;">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a onclick="navigateTo('home')">首頁</a> / <a onclick="navigateTo('portfolio')">作品集</a> / 作品詳情
+                </div>
+                <h1 class="section-title" style="margin-top: 32px;">模組化設計系統</h1>
+                
+                <div class="detail-grid">
+                    <div class="detail-image">🎨</div>
+                    <div class="detail-info">
+                        <h3>產品資訊</h3>
+                        <p><strong>設計理念：</strong> 模組化、可擴展、永續發展</p>
+                        <p><strong>材料：</strong> 環保木材、再生塑料</p>
+                        <p><strong>應用領域：</strong> 家居、辦公、教育</p>
+                        <p><strong>獲獎：</strong> 2024 國際設計獎</p>
+                        <button class="btn btn-primary" style="margin-top: 16px;" onclick="navigateTo('portfolio')">返回作品集</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Shop Page -->
+    <div id="shop" class="page">
+        <section style="padding: 40px 0;">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a onclick="navigateTo('home')">首頁</a> / 商店
+                </div>
+                <h1 class="section-title" style="margin-top: 32px;">線上商店</h1>
+                <p class="section-subtitle">精心設計的工作室自有品牌產品</p>
+                
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                    <div class="feature-card">
+                        <div class="feature-image">📦</div>
+                        <div class="feature-content">
+                            <h3>模組化收納盒</h3>
+                            <p>NT$ 1,200</p>
+                            <p style="color: #999; font-size: 12px;">庫存：5 件</p>
+                            <a class="feature-link" onclick="navigateTo('product-detail')">查看詳情 →</a>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-image">🛠️</div>
+                        <div class="feature-content">
+                            <h3>創客工具套組</h3>
+                            <p>NT$ 2,800</p>
+                            <p style="color: #999; font-size: 12px;">庫存：12 件</p>
+                            <a class="feature-link" onclick="navigateTo('product-detail')">查看詳情 →</a>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-image">🎨</div>
+                        <div class="feature-content">
+                            <h3>設計師筆記本</h3>
+                            <p>NT$ 480</p>
+                            <p style="color: #999; font-size: 12px;">庫存：20 件</p>
+                            <a class="feature-link" onclick="navigateTo('product-detail')">查看詳情 →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Product Detail Page -->
+    <div id="product-detail" class="page">
+        <section style="padding: 40px 0;">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a onclick="navigateTo('home')">首頁</a> / <a onclick="navigateTo('shop')">商店</a> / 商品詳情
+                </div>
+                <h1 class="section-title" style="margin-top: 32px;">模組化收納盒</h1>
+                
+                <div class="detail-grid">
+                    <div class="detail-image">📦</div>
+                    <div class="detail-info">
+                        <h3>商品資訊</h3>
+                        <p><strong>價格：</strong> NT$ 1,200</p>
+                        <p><strong>庫存：</strong> 5 件</p>
+                        <p><strong>規格：</strong> 30 x 20 x 15 cm</p>
+                        <p><strong>材料：</strong> 環保木材</p>
+                        <p><strong>描述：</strong> 靈活組合，無限可能。模組化設計讓收納更簡單。</p>
+                        <button class="btn btn-primary" style="margin-top: 16px; width: 100%;" onclick="alert('加入購物車功能在完整版本中可用')">加入購物車</button>
+                        <button class="btn btn-secondary" style="margin-top: 8px; width: 100%;" onclick="navigateTo('shop')">返回商店</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Crowdfunding Page -->
+    <div id="crowdfunding" class="page">
+        <section style="padding: 40px 0;">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a onclick="navigateTo('home')">首頁</a> / 募資項目
+                </div>
+                <h1 class="section-title" style="margin-top: 32px;">募資項目</h1>
+                <p class="section-subtitle">參與我們的創新專案</p>
+                
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                    <div class="feature-card">
+                        <div class="feature-image">🎯</div>
+                        <div class="feature-content">
+                            <h3>智能模組化系統</h3>
+                            <p>目標：NT$ 500,000 | 已募資：NT$ 350,000 (70%)</p>
+                            <p style="color: #999; font-size: 12px;">123 人贊助</p>
+                            <a class="feature-link" onclick="navigateTo('crowdfunding-detail')">查看詳情 →</a>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-image">🚀</div>
+                        <div class="feature-content">
+                            <h3>永續設計計畫</h3>
+                            <p>目標：NT$ 300,000 | 已募資：NT$ 280,000 (93%)</p>
+                            <p style="color: #999; font-size: 12px;">89 人贊助</p>
+                            <a class="feature-link" onclick="navigateTo('crowdfunding-detail')">查看詳情 →</a>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-image">💡</div>
+                        <div class="feature-content">
+                            <h3>創客教育平台</h3>
+                            <p>目標：NT$ 200,000 | 已募資：NT$ 150,000 (75%)</p>
+                            <p style="color: #999; font-size: 12px;">67 人贊助</p>
+                            <a class="feature-link" onclick="navigateTo('crowdfunding-detail')">查看詳情 →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Crowdfunding Detail Page -->
+    <div id="crowdfunding-detail" class="page">
+        <section style="padding: 40px 0;">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a onclick="navigateTo('home')">首頁</a> / <a onclick="navigateTo('crowdfunding')">募資項目</a> / 專案詳情
+                </div>
+                <h1 class="section-title" style="margin-top: 32px;">智能模組化系統</h1>
+                
+                <div class="detail-grid">
+                    <div class="detail-image">🎯</div>
+                    <div class="detail-info">
+                        <h3>募資資訊</h3>
+                        <p><strong>目標金額：</strong> NT$ 500,000</p>
+                        <p><strong>已募資：</strong> NT$ 350,000</p>
+                        <p><strong>進度：</strong> 70%</p>
+                        <p><strong>贊助人數：</strong> 123 人</p>
+                        <p><strong>狀態：</strong> 進行中</p>
+                        <button class="btn btn-primary" style="margin-top: 16px; width: 100%;" onclick="alert('前往募資平台功能在完整版本中可用')">前往募資平台</button>
+                        <button class="btn btn-secondary" style="margin-top: 8px; width: 100%;" onclick="navigateTo('crowdfunding')">返回募資項目</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <section style="padding: 40px 0;">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a onclick="navigateTo('home')">首頁</a> / 關於我們
+                </div>
+                <h1 class="section-title" style="margin-top: 32px;">關於 IDM 工作室</h1>
+                
+                <section style="padding: 40px 0;">
+                    <h2 class="section-title">核心精神</h2>
+                    <p class="section-subtitle" style="font-size: 24px; color: var(--primary);">想像無限，勇於實踐</p>
+                    <p style="text-align: center; max-width: 600px; margin: 0 auto; color: #666;">
+                        創意，從「敢想」開始。每一個偉大的成就，都源於一個最初的點子。我們相信，只要勇於實踐，任何想像都能成為現實。
+                    </p>
+                </section>
+
+                <section class="light" style="padding: 40px 0; margin-top: 40px;">
+                    <h2 class="section-title">我們的價值觀</h2>
+                    <div class="grid" style="margin-top: 32px;">
+                        <div class="card">
+                            <h3>創新思維</h3>
+                            <p>我們不滿足於現狀，持續探索新的可能性，挑戰傳統思維框架。</p>
+                        </div>
+                        <div class="card">
+                            <h3>品質至上</h3>
+                            <p>每個細節都經過精心打磨，我們堅持提供最高品質的產品與服務。</p>
+                        </div>
+                        <div class="card">
+                            <h3>永續發展</h3>
+                            <p>在創新的同時，我們也關注環境永續，致力於創造對社會有益的價值。</p>
+                        </div>
+                        <div class="card">
+                            <h3>開放協作</h3>
+                            <p>我們相信集體智慧的力量，樂於與各界夥伴合作，共同創造更大價值。</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section style="padding: 40px 0;">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a onclick="navigateTo('home')">首頁</a> / 聯繫我們
+                </div>
+                <h1 class="section-title" style="margin-top: 32px;">聯繫我們</h1>
+                <p class="section-subtitle">有任何問題或合作提案？歡迎與我們聯繫</p>
+                
+                <div class="detail-grid">
+                    <div>
+                        <h3 style="font-size: 20px; margin-bottom: 24px;">聯絡資訊</h3>
+                        <div style="background: var(--muted); padding: 24px; border-radius: 8px; margin-bottom: 24px;">
+                            <p style="margin-bottom: 16px;">
+                                <strong>📧 Email：</strong><br>
+                                contact@idm.studio
+                            </p>
+                            <p style="margin-bottom: 16px;">
+                                <strong>📞 電話：</strong><br>
+                                +886 2 1234 5678
+                            </p>
+                            <p style="margin-bottom: 16px;">
+                                <strong>📍 地址：</strong><br>
+                                台北市信義區信義路五段7號
+                            </p>
+                            <p>
+                                <strong>⏰ 營業時間：</strong><br>
+                                週一至週五：09:00 - 18:00<br>
+                                週六：10:00 - 17:00<br>
+                                週日及國定假日：公休
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 20px; margin-bottom: 24px;">發送訊息</h3>
+                        <form style="background: var(--muted); padding: 24px; border-radius: 8px;">
+                            <div style="margin-bottom: 16px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 600;">姓名 *</label>
+                                <input type="text" placeholder="請輸入您的姓名" style="width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px;">
+                            </div>
+                            <div style="margin-bottom: 16px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Email *</label>
+                                <input type="email" placeholder="your@email.com" style="width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px;">
+                            </div>
+                            <div style="margin-bottom: 16px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 600;">訊息 *</label>
+                                <textarea placeholder="請詳細描述您的需求或問題..." rows="4" style="width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px;"></textarea>
+                            </div>
+                            <button type="button" class="btn btn-primary" style="width: 100%;" onclick="alert('表單提交功能在完整版本中可用')">送出訊息</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>IDM 品牌網站</h4>
+                    <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">想像無限，勇於實踐。我們是一個專注於創意實踐的工作室。</p>
+                </div>
+                <div class="footer-section">
+                    <h4>快速連結</h4>
+                    <ul>
+                        <li><a onclick="navigateTo('portfolio')">作品集</a></li>
+                        <li><a onclick="navigateTo('shop')">商店</a></li>
+                        <li><a onclick="navigateTo('crowdfunding')">募資項目</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>關於</h4>
+                    <ul>
+                        <li><a onclick="navigateTo('about')">關於我們</a></li>
+                        <li><a onclick="navigateTo('contact')">聯繫我們</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>社群媒體</h4>
+                    <ul>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 IDM 品牌網站. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function navigateTo(pageId) {
+            // 隱藏所有頁面
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // 顯示目標頁面
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // 更新導航按鈕狀態
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // 根據頁面 ID 設定活動按鈕
+            const navMap = {
+                'home': 0,
+                'portfolio': 0,
+                'portfolio-detail': 0,
+                'shop': 1,
+                'product-detail': 1,
+                'crowdfunding': 2,
+                'crowdfunding-detail': 2,
+                'about': 3,
+                'contact': 4
+            };
+
+            if (navMap[pageId] !== undefined) {
+                const navLinks = document.querySelectorAll('.nav-link');
+                if (navLinks[navMap[pageId]]) {
+                    navLinks[navMap[pageId]].classList.add('active');
+                }
+            }
+
+            // 滾動到頂部
+            window.scrollTo(0, 0);
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            navigateTo('home');
+        });
+    </script>
+</body>
+</html>
